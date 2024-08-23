@@ -1,0 +1,16 @@
+from django.shortcuts import render
+from rest_framework.response import Response
+from .pusher import pusher_client
+from rest_framework.views import APIView
+# Create your views here.
+
+class MessageApiView(APIView):
+
+  def post (self, request,):
+    pusher_client.trigger('chat','message', { 
+        'username': request.data['username'],
+        'message': request.data['message'],}
+      )
+    return Response([])
+
+ 
